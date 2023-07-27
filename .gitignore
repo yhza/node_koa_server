@@ -6,11 +6,43 @@
 npm init -y
 ```
 
-# 2.git初始化
+## 2.git初始化
 
 ```
 git init
 ```
 
-# 3.创建ReadMe  文件
+## 3.创建ReadMe  文件
 
+# 二.搭建项目
+
+## 1.安装Koa框架
+
+```
+npm install koa
+```
+
+## 2.编写最基础的app
+
+1.创建文件夹`src/main.js`
+
+2.编写简单appd代码
+
+```
+const Koa = require('koa');
+
+const app = new Koa();
+
+// 中间件
+app.use((ctx,next)=>{
+    ctx.body ='hello api'
+})
+
+app.listen(3000,()=>{
+    console.log('server listening on http://localhost:3000');
+})
+```
+
+# 3.测试并启动服务端
+
+1.使用`node src/main.js`来启动服务端
