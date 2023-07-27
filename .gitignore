@@ -1,3 +1,5 @@
+
+
 # 一、项目的初始化
 
 ## 1.npm 初始化
@@ -43,6 +45,63 @@ app.listen(3000,()=>{
 })
 ```
 
-# 3.测试并启动服务端
+# 3.测试并启动服务器
 
-1.使用`node src/main.js`来启动服务端
+1.使用`node src/main.js`来启动服务器
+
+# 4.优化项目
+
+## 1.自动重启服务器
+
+1.安装nodemon
+
+```
+npm i nodemon
+```
+
+2.进行配置nodemon，在package.json中
+
+```
+ "scripts": {
+    "dev":"nodemon ./src/main.js"
+  }
+```
+
+3.使用`npm run dev`来启动服务器
+
+![image-20230727231523701](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230727231523701.png)
+
+## 2.读取配置文件（如端口号、地址）
+
+1.安装`dotenv`,然后读取根目录中的`.env`文件，将配置写`process.env`中
+
+```
+npm i dotenv
+```
+
+2.创建`.env`文件
+
+```
+APP_POST = 8000
+```
+
+3.创建`src/config/config_default.js`文件
+
+```
+const dotenv = require('dotenv');
+
+dotenv.config();
+// console.log(process.env.APP_POST);
+
+module.exports = process.env
+```
+
+4.改写成动态的接口(如main.js)
+
+```
+const {APP_POST} = require('./config/config.default');
+app.listen(APP_POST,()=>{
+    console.log(`server listening on http://localhost:${APP_POST}`);
+})
+```
+
