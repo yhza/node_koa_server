@@ -49,7 +49,7 @@ app.listen(3000,()=>{
 
 1.使用`node src/main.js`来启动服务器
 
-# 4.优化项目
+# 三.优化项目
 
 ## 1.自动重启服务器
 
@@ -103,5 +103,106 @@ const {APP_POST} = require('./config/config.default');
 app.listen(APP_POST,()=>{
     console.log(`server listening on http://localhost:${APP_POST}`);
 })
+```
+
+# 四、添加路由
+
+路由：根据不同的URL，来调用对应处理函数 
+
+## 1.安装koa-router
+
+```
+npm i koa-router
+```
+
+步骤：
+
+1. 导入包
+2. 实例化对象
+3. 编写路由
+4. 注册中间件
+
+##  2.编写路由
+
+1.创建src/router文件夹，并在里创建`user.route.js`(来管理路由)
+
+```
+const Router = require('koa-router');
+const router = new Router({prefix:'/user'});
+
+router.get('/',(ctx, next) => {
+    ctx.body= 'hello 用户页'
+})
+
+module.exports= router
+```
+
+2.修改main.js
+
+```
+const userRouter = require('./router/user.route')
+// 中间件
+app.use(userRouter.routes());
+```
+
+# 五.目录结构优化
+
+## 1.将http服务和app业务拆分
+
+创建`src/app`文件夹，并创建`src/app/index.js`文件
+
+src/app/index.js
+
+```
+const Koa = require('koa');
+const userRouter = require('../router/user.route')
+const app = new Koa();
+// 中间件(中间件只能调用函数)
+app.use(userRouter.routes());
+module.exports = app;
+```
+
+2.修改main.js
+
+```
+const  app = require('./app/index')
+
+const {APP_POST} = require('./config/config.default');
+
+app.listen(APP_POST,()=>{
+    console.log(`server listening on http://localhost:${APP_POST}`);
+})
+```
+
+## 2.将路由和控制器拆分优化
+
+1.改写了user.route.js
+
+```
+const Router = require('koa-router');
+const router = new Router({prefix:'/user'});
+const { register,login } = require('../controller/user.controller');
+
+// 注册接口
+router.post('/register',register);
+//登录接口
+router.post('/login',login);
+
+module.exports= router
+```
+
+2.添加`src/controller`文件夹,并创建`user.controller.js`
+
+```
+class Usercontroller {
+     async register(ctx,next){
+        ctx.body ='注册成功'
+     }
+     async login(ctx,next){
+        ctx.body ='登录成功'
+     }
+}
+
+module.exports= new Usercontroller()
 ```
 
