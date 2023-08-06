@@ -253,7 +253,7 @@ npm i koa-body
 
 改写`app/index.js`
 
-![image-20210521165536780](http://image.brojie.cn/image-20210521165536780.png)
+![](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230728123544197.png)
 
 ## 3 解析请求数据
 
@@ -373,7 +373,7 @@ const { DataTypes } = require('sequelize')
 
 const seq = require('../db/seq')
 
-// 创建模型(Model zd_user -> 表 zd_users)
+// 创建模型(Model zd_user -> 表 zd_users)（简称创建表）
 const User = seq.define('zd_user', {
   // id 会被sequelize自动创建, 管理
   user_name: {
@@ -652,7 +652,7 @@ app.on('error', errHandler)
 
 123123abc (加盐) 加盐加密
 
-## 1 安装 bcryptjs
+## 1 安装 bcryptjs 
 
 ```
 npm i bcryptjs
