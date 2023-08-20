@@ -1,7 +1,7 @@
+// 导入可以调用数据库的插件
 const { DataTypes } = require("sequelize");
-
+// 数据库连接
 const seq = require("../db/seq");
-
 // 创建模型(简称创建表)
 const User = seq.define(
   "yh_user",
@@ -9,7 +9,7 @@ const User = seq.define(
     // id会自己生成不用写也没事
     user_name: {
       type: DataTypes.STRING,
-      // 是否运行为空
+      // 是否允许为空
       allowNull: false,
       // 是否是唯一的
       unique: true,
